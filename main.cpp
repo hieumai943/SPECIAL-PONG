@@ -10,10 +10,9 @@
 
 int main(int argc, char* args[]){
   
-    game.init();
     game.variable();
     game.serve();
     game.runMenu();
     game.rungame();
-    game.close();
+  
  }

@@ -1,6 +1,6 @@
 #include"game.h"
 
-void Game::init(){
+Game::Game(){
 
 if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
   if(SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer) < 0) cout << "Failed at SDL_CreateWindowAndRenderer())" << endl;
@@ -16,8 +16,7 @@ if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
   
   TTF_Init();
     font = TTF_OpenFont("Peepo.ttf",FONT_SIZE);
-     
-    bgr.setDest(0,0,1000,600);
+  bgr.setDest(0,0,1000,600);
   bgr.setSource(0,0,2000,1200);
   bgr.setImage("bgr.bmp",renderer);
 
@@ -36,6 +35,20 @@ if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
   score1="  LEVEL  ";
   score2="  MODE ";
   score3="  PLAY ";
+
+}
+Game::~Game(){
+ Mix_FreeChunk(gHigh);
+  gHigh=NULL;
+
+  Mix_FreeMusic(gnhacnen);
+  gnhacnen=NULL;
+  Mix_Quit();
+  SDL_DestroyRenderer(renderer);
+  SDL_DestroyWindow(window);
+  TTF_CloseFont(font);
+  
+  SDL_Quit();
 }
 void Game:: variable(){
   l_s = r_s =0;
@@ -79,13 +92,14 @@ void Game:: renderMenu(){
   //bat dau tu duoi nay la set mau cua cac thanh phan
    SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
     
-   write(level1, WIDTH/2-215, FONT_SIZE*6-100);
-   write(level2, WIDTH/2-215,FONT_SIZE*6+100);
-   write(mode1,WIDTH/2+100,FONT_SIZE*6-100);
-   write(mode2,WIDTH/2+100,FONT_SIZE*6+100);
-   write(score1, WIDTH/2-215,FONT_SIZE*6);
-   write(score2 , WIDTH/2 +100 ,FONT_SIZE*6);
-   write(score3, WIDTH/2+415 ,FONT_SIZE*6);
+   write(level1, WIDTH/2-215, FONT_SIZE*6-100,0,0,0);
+   write(level2, WIDTH/2-215,FONT_SIZE*6+100,0,0,0);
+   write(mode1,WIDTH/2+100,FONT_SIZE*6-100,0,0,0);
+   write(mode2,WIDTH/2+100,FONT_SIZE*6+100,0,0,0);
+   write(score1, WIDTH/2-215,FONT_SIZE*6,0,0,0);
+   write(score2 , WIDTH/2 +100 ,FONT_SIZE*6,0,0,0);
+   write(score3, WIDTH/2+415 ,FONT_SIZE*6,255,255,255);
+  
    SDL_RenderPresent(renderer);
 }
 void Game:: inputMenu(){
@@ -94,14 +108,13 @@ void Game:: inputMenu(){
   
 const Uint8 *keystates= SDL_GetKeyboardState(NULL);
   while(SDL_PollEvent(&e)){
-
-   if(e.type==SDL_MOUSEMOTION){
+  if(e.type==SDL_MOUSEMOTION){
      int mouseX=e.motion.x;
      int mouseY=e.motion.y;
      stringstream ss;
      ss<<"X: "<< mouseX<<"Y:  "<< mouseY;
      SDL_SetWindowTitle(window,ss.str().c_str());
-
+    if(mouseX>=110&& mouseX<=270&&mouseY>=170&& mouseY<=225)    write(score3, WIDTH/2-215, FONT_SIZE*6-100,255,255,0);
    }
     else if(e.type==SDL_MOUSEBUTTONDOWN){
      int mouseX=e.motion.x;
@@ -111,11 +124,12 @@ const Uint8 *keystates= SDL_GetKeyboardState(NULL);
         level1=" EASY  ";
         level2=" HARD  ";
         score1=" ";
-     
-    }
+       
+     }
    
     if( e.button.button== SDL_BUTTON_LEFT&& mouseX>=110&& mouseX<=270&&mouseY>=170&& mouseY<=225){
       easy=1;
+
     }
     if(e.button.button==SDL_BUTTON_LEFT && mouseX >= 101 && mouseX <= 273 && mouseY>= 371&& mouseY<=425 ){
       easy=2;
@@ -189,10 +203,12 @@ void Game:: update(){
   
   if(ball.x<=0) {// tang diem
     r_s++;
+
     serve();
  }
    if(ball.x>=WIDTH-SIZE) {
     l_s++;
+
     serve();
   }
   // chan paddle
@@ -215,8 +231,8 @@ void Game:: inputgame(){
   }
   if((easy==1&&mode==1)|| (easy==2 && mode==1)){
   if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
-  if(keystates[SDL_SCANCODE_W]) l_paddle.y-=SPEED;
-  if(keystates[SDL_SCANCODE_S]) l_paddle.y+=SPEED;
+  if(keystates[SDL_SCANCODE_UP]) l_paddle.y-=SPEED;
+  if(keystates[SDL_SCANCODE_DOWN]) l_paddle.y+=SPEED;
   }
   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
      if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
@@ -228,10 +244,19 @@ void Game:: inputgame(){
   }
 }
 
-void Game:: write(string text, int x, int y){// ham nay de viet ti so ben tren
+void Game:: draw(Object o){
+   SDL_Rect dest= o.getDest();
+  SDL_Rect src= o.getSource();
+  SDL_RenderCopyEx(renderer,o.getTex(),&src,&dest,0,NULL,SDL_FLIP_NONE);
+}
+void Game::write(string text, int x, int y,int r, int g, int b){// ham nay de viet ti so ben tren
  SDL_Surface *surface;
  SDL_Texture *texture;
  const char*t = text.c_str();
+ color.r=r;
+  color.g = g;
+  color.b=b;
+  color.a=255;
  surface = TTF_RenderText_Solid(font, t, color);
  texture= SDL_CreateTextureFromSurface(renderer, surface);
  score_board.w=surface->w;
@@ -242,13 +267,6 @@ void Game:: write(string text, int x, int y){// ham nay de viet ti so ben tren
  SDL_RenderCopy(renderer, texture, NULL, &score_board);
  SDL_DestroyTexture(texture);
 }
-void Game:: draw(Object o){
-   SDL_Rect dest= o.getDest();
-  SDL_Rect src= o.getSource();
-  SDL_RenderCopyEx(renderer,o.getTex(),&src,&dest,0,NULL,SDL_FLIP_NONE);
-}
-
-
 void Game:: rendergame(){
 
   if(easy==1){
@@ -262,7 +280,8 @@ void Game:: rendergame(){
       SDL_Delay((1000/60)-timerFPS);
   }
    SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
-   write(score, WIDTH/2+ FONT_SIZE*3,FONT_SIZE*2);
+     write(score, WIDTH/2+ FONT_SIZE*3,FONT_SIZE*2,255,255,255);
+
   SDL_RenderFillRect(renderer, &l_paddle);
    SDL_RenderFillRect(renderer, &r_paddle);
 
@@ -284,7 +303,7 @@ if(easy==2){
       SDL_Delay((1000/60)-timerFPS);
   }
    SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
-   write(score, WIDTH/2+ FONT_SIZE*3,FONT_SIZE*2);
+   write(score, WIDTH/2+ FONT_SIZE*3,FONT_SIZE*2,255,255,255);
   SDL_RenderFillRect(renderer, &l_paddle);
    SDL_RenderFillRect(renderer, &r_paddle);
    draw(m_ball);
@@ -303,22 +322,11 @@ void Game:: rungame(){
             fps=frameCount;
             frameCount=0;
         }
+      
         update();
         inputgame();
-        rendergame();
+          rendergame();
+        
   }
 }
-void Game:: close(){
 
-  Mix_FreeChunk(gHigh);
-  gHigh=NULL;
-
-  Mix_FreeMusic(gnhacnen);
-  gnhacnen=NULL;
-  Mix_Quit();
-  SDL_DestroyRenderer(renderer);
-  SDL_DestroyWindow(window);
-  TTF_CloseFont(font);
-  
-  SDL_Quit();
-}

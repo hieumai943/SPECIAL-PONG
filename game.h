@@ -15,7 +15,8 @@ const double PI = 3.14;
 
 class Game{
    public:
-
+Game();
+~Game();
 SDL_Color color;
 
 bool running;
@@ -35,17 +36,18 @@ bool turn ;
 Mix_Music *gnhacnen = NULL;
 Mix_Chunk *gHigh=NULL;
 int easy,mode;
-Menu menu;
+
 void init();
 void variable();
 void serve();
 void draw(Object o);
+void DRAW(const char*msg,int x, int y, int r, int g, int b ,int size);
 void inputMenu();
 void renderMenu();
 void runMenu();
 void update();
 void inputgame();
-void write(string text, int x, int y);
+void write(string text, int x, int y,int r, int g, int b);
 void rendergame();
 void rungame();
 void close();
