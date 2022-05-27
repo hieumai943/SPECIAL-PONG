@@ -43,8 +43,6 @@ void rendergame();
 void rungame();
 void runback();
 
-  
-
    private:
 
 SDL_Renderer *renderer;

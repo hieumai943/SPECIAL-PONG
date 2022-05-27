@@ -317,7 +317,7 @@ void Game:: rendergame(){
   if(timerFPS<(1000/60)){
       SDL_Delay((1000/60)-timerFPS);
   }
-  write(score, WIDTH/2+ FONT_SIZE*3+220,FONT_SIZE*2,0,0,0,27);
+  write(score, WIDTH/2+ FONT_SIZE*3+210,FONT_SIZE*2,0,0,0,27);
  SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
   SDL_RenderFillRect(renderer, &l_paddle);
    SDL_RenderFillRect(renderer, &r_paddle);
@@ -338,7 +338,7 @@ if(easy==2&&mode==1|| easy==2&&mode==2){
       SDL_Delay((1000/60)-timerFPS);
   }
    SDL_SetRenderDrawColor(renderer, 255, 185, 0 ,255);
-   write(score, WIDTH/2+ FONT_SIZE*3+220,FONT_SIZE*2,255,255,255,37);
+   write(score, WIDTH/2+ FONT_SIZE*3+210,FONT_SIZE*2,255,255,255,37);
   SDL_RenderFillRect(renderer, &l_paddle);
    SDL_RenderFillRect(renderer, &r_paddle);
    draw(m_ball2);
@@ -367,23 +367,23 @@ void Game:: rungame(){
 void Game::runback(){
   bool run=1;
   while(run){
-    if(running=0){
-     draw(over);
-     SDL_RenderPresent(renderer);
-     running=1;
-    }
-  if(r_s==5&&mode==1){
+    running=1;
+  if(r_s==5&&mode==1){running=0;
     draw(over);
     SDL_RenderPresent(renderer);}
-  if(l_s==5&&mode==1){
+  if(l_s==5&&mode==1){running=0;
     draw(win);
     SDL_RenderPresent(renderer);}
-  if(l_s==5&&mode==2){
+  if(l_s==5&&mode==2){running=0;
     draw(play1);
     SDL_RenderPresent(renderer);
   }
-  if(r_s==5&&mode==2){
+  if(r_s==5&&mode==2){running=0;
     draw(play2);
+    SDL_RenderPresent(renderer);
+  }
+  if(running){
+    draw(over);
     SDL_RenderPresent(renderer);
   }
     SDL_Event e;
