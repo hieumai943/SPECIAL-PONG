@@ -2,13 +2,17 @@
 #define MENU_H
 #include"object.h"
 
+
+
+const double SIZE= 17;
+const double BALL_SPEED= 16;
+const double SPEED = 12;
+const double PI = 3.14;
 const int WIDTH= 1000;
 const int HEIGHT= 600;
 const int FONT_SIZE= 56;
 
 
-
- void DRAW(const char*msg,int x, int y, int r, int g, int b ,int size);
 
  
 

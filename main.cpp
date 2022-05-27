@@ -5,14 +5,15 @@
     SDL_Renderer *renderer;
     SDL_Window *window;
     TTF_Font* font;
-
     Game game;
-
 int main(int argc, char* args[]){
-  
+     game.restart=1;
+while(game.restart==1){
     game.variable();
     game.serve();
-    game.runMenu();
+   game.runMenu();
     game.rungame();
-  
+   game.runback();
+   game.start=0;
+  }
  }
