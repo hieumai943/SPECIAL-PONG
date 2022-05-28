@@ -3,7 +3,6 @@
 
 #include"object.h"
 #include"menu.h"
-
 class Game{
    public:
 Game();
@@ -11,7 +10,6 @@ Game();
 SDL_Color color;
 
 bool running;
-
 
 SDL_Rect l_paddle, r_paddle, ball ,tuong,tuong1;
 
@@ -26,7 +24,7 @@ int l_s, r_s;// diem trai va diem phai
 bool turn ;
 Mix_Music *gnhacnen = NULL;
 Mix_Chunk *gHigh=NULL;
-int easy,mode,start,restart;
+int easy,mode,start,restart,run;
 int count=0,count1=0;
 
 void variable();

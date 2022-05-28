@@ -14,10 +14,13 @@ if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
   }
    TTF_Init();
     font = TTF_OpenFont("Peepo.ttf",FONT_SIZE);
+  bgrMenu.setDest(0,0,1000,600);
+  bgrMenu.setSource(0,0,2000,1200);
+  bgrMenu.setImage("bgr.jpg",renderer);
   bgr.setDest(0,0,1000,600);
   bgr.setSource(0,0,2000,1200);
   bgr.setImage("bgr.bmp",renderer);
- bgr2.setDest(0,0,1000,600);
+  bgr2.setDest(0,0,1000,600);
   bgr2.setSource(0,0,2000,1200);
   bgr2.setImage("bgr2.jpg",renderer);
   wall.setDest(300,400,160,110);
@@ -101,9 +104,6 @@ void Game:: serve(){// ham de giao bong
 void Game:: renderMenu(){
 
   SDL_RenderClear(renderer);//background
-  bgrMenu.setDest(0,0,1000,600);
-  bgrMenu.setSource(0,0,2000,1200);
-  bgrMenu.setImage("bgr.jpg",renderer);
   draw(bgrMenu);
   if((count==1&& count1==1)|| (count==1&&count1==2) ||( count==2 && count1==1) || (count==2 && count1==2))  draw(play);
   //bat dau tu duoi nay la set mau cua cac thanh phan
@@ -133,19 +133,20 @@ void Game:: renderMenu(){
     if(count==0|| count==1||count==2||count1==1||count1==2){
    write(score1, WIDTH/2-215,FONT_SIZE*6,0,0,0,FONT_SIZE);
    write(score2 , WIDTH/2 +100 ,FONT_SIZE*6,0,0,0,FONT_SIZE);
-   SDL_RenderPresent(renderer);
+  SDL_RenderPresent(renderer);
     }
    
     
 }
 void Game:: inputMenu(){
-  
+      stringstream ss;
+     ss<<"SPECIAL PONG";
+     SDL_SetWindowTitle(window,ss.str().c_str());
     SDL_Event e;
-  
-const Uint8 *keystates= SDL_GetKeyboardState(NULL);
+  const Uint8 *keystates= SDL_GetKeyboardState(NULL);
   while(SDL_PollEvent(&e)){
-   if(e.type==SDL_QUIT) running =0;
-   else if(e.type==SDL_MOUSEBUTTONDOWN){
+    if(e.type==SDL_QUIT) running =0,run=1;
+   if(e.type==SDL_MOUSEBUTTONDOWN){
      int mouseX=e.motion.x;
      int mouseY=e.motion.y;
  
@@ -184,17 +185,18 @@ const Uint8 *keystates= SDL_GetKeyboardState(NULL);
       start=1;
     }
    }
+   
+   if(keystates[SDL_SCANCODE_ESCAPE]) running =0,run=1;
+   if(start==1) running =0;
   }
-   if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
-   if(start==1) running=0;
    
   }
 
 void Game:: runMenu(){
   running=1;
 while(running){
-  renderMenu();
   inputMenu();
+  renderMenu();
   }
 }
 void Game:: update(){
@@ -264,20 +266,21 @@ void Game:: inputgame(){
 
   while(SDL_PollEvent(&e)){
    if(e.type==SDL_QUIT) running =0;
+
   }
   
   if((easy==1&&mode==1)|| (easy==2 && mode==1)){
   if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
-  if(keystates[SDL_SCANCODE_UP]) l_paddle.y-=SPEED;
-  if(keystates[SDL_SCANCODE_DOWN]) l_paddle.y+=SPEED;
+  if(keystates[SDL_SCANCODE_UP]) l_paddle.y-=SPEED+5;
+  if(keystates[SDL_SCANCODE_DOWN]) l_paddle.y+=SPEED+5;
   }
   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
      if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
-    if(keystates[SDL_SCANCODE_W]) l_paddle.y-=SPEED;
-  if(keystates[SDL_SCANCODE_S]) l_paddle.y+=SPEED;
+    if(keystates[SDL_SCANCODE_W]) l_paddle.y-=SPEED+5;
+  if(keystates[SDL_SCANCODE_S]) l_paddle.y+=SPEED+5;
    
-  if(keystates[SDL_SCANCODE_UP]) r_paddle.y-=SPEED;
-  if(keystates[SDL_SCANCODE_DOWN]) r_paddle.y+=SPEED;
+  if(keystates[SDL_SCANCODE_UP]) r_paddle.y-=SPEED+5;
+  if(keystates[SDL_SCANCODE_DOWN]) r_paddle.y+=SPEED+5;
   }
 }
 
