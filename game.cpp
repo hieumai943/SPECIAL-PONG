@@ -5,51 +5,51 @@ if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
   if(SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer) < 0) cout << "Failed at SDL_CreateWindowAndRenderer())" << endl;
  Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
    
-      gnhacnen = Mix_LoadMUS("nhacnen.mp3");
-      gHigh =Mix_LoadWAV("low.wav");
+      gnhacnen = Mix_LoadMUS("media/nhacnen.mp3");
+      gHigh =Mix_LoadWAV("media/low.wav");
     if(Mix_PlayingMusic()==0) Mix_PlayMusic(gnhacnen,-1);
   else{
     if(Mix_PausedMusic()==1) Mix_ResumeMusic();
     else Mix_PauseMusic();
   }
    TTF_Init();
-    font = TTF_OpenFont("Peepo.ttf",FONT_SIZE);
+    font = TTF_OpenFont("media/Peepo.ttf",FONT_SIZE);
   bgrMenu.setDest(0,0,1000,600);
   bgrMenu.setSource(0,0,2000,1200);
-  bgrMenu.setImage("bgr.jpg",renderer);
+  bgrMenu.setImage("media/bgr.jpg",renderer);
   bgr.setDest(0,0,1000,600);
   bgr.setSource(0,0,2000,1200);
-  bgr.setImage("bgr.bmp",renderer);
+  bgr.setImage("media/bgr.bmp",renderer);
   bgr2.setDest(0,0,1000,600);
   bgr2.setSource(0,0,2000,1200);
-  bgr2.setImage("bgr2.jpg",renderer);
+  bgr2.setImage("media/bgr2.jpg",renderer);
   wall.setDest(300,400,160,110);
   wall.setSource(0,0,1000,1200);
-  wall.setImage("tieuhanhtinh.png",renderer);
+  wall.setImage("media/tieuhanhtinh.png",renderer);
   wall1.setDest(550,150,150,100);
   wall1.setSource(0,0,1000,1200);
-  wall1.setImage("tieuhanhtinh2.png",renderer);
+  wall1.setImage("media/tieuhanhtinh2.png",renderer);
   play.setDest(700,300,220,180);
   play.setSource(0,0,2000,1200);
-  play.setImage("play.png",renderer);
+  play.setImage("media/play.png",renderer);
   m_ball.setDest(390,220,23,23);
   m_ball.setSource(0,0,1000,1200);
-  m_ball.setImage("ball.png",renderer);
+  m_ball.setImage("media/ball.png",renderer);
   m_ball2.setDest(390,220,23,23);
   m_ball2.setSource(0,0,1000,1200);
-  m_ball2.setImage("thienthach.png",renderer);
+  m_ball2.setImage("media/thienthach.png",renderer);
   over.setDest(0,0,1000,600);
   over.setSource(0,0,1000,1200);
-  over.setImage("gameover.jpg",renderer);
+  over.setImage("media/gameover.jpg",renderer);
    win.setDest(0,0,1000,600);
   win.setSource(0,0,1000,1200);
-  win.setImage("youwin.jpg",renderer);
+  win.setImage("media/youwin.jpg",renderer);
   play1.setDest(0,0,1000,600);
   play1.setSource(0,0,1000,1200);
-  play1.setImage("play1.jpg",renderer);
+  play1.setImage("media/play1.jpg",renderer);
   play2.setDest(0,0,1000,600);
   play2.setSource(0,0,1000,1200);
-  play2.setImage("player2.jpg",renderer);
+  play2.setImage("media/player2.jpg",renderer);
   level1=" ",level2=" ",mode1=" ",mode2=" ";
   score1="  LEVEL  ";
   score2="  MODE ";
@@ -266,7 +266,12 @@ void Game:: inputgame(){
 
   while(SDL_PollEvent(&e)){
    if(e.type==SDL_QUIT) running =0;
-
+ if(e.type==SDL_MOUSEMOTION){
+   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
+    l_paddle.x=32;
+    l_paddle.y=e.motion.y;
+   }
+  }
   }
   
   if((easy==1&&mode==1)|| (easy==2 && mode==1)){
@@ -276,9 +281,7 @@ void Game:: inputgame(){
   }
   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
      if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
-    if(keystates[SDL_SCANCODE_W]) l_paddle.y-=SPEED+5;
-  if(keystates[SDL_SCANCODE_S]) l_paddle.y+=SPEED+5;
-   
+ 
   if(keystates[SDL_SCANCODE_UP]) r_paddle.y-=SPEED+5;
   if(keystates[SDL_SCANCODE_DOWN]) r_paddle.y+=SPEED+5;
   }
@@ -292,7 +295,7 @@ void Game:: draw(Object o){
 void Game::write(string text, int x, int y,int r, int g, int b,int size){// ham nay de viet ti so ben tren
  SDL_Surface *surface;
  SDL_Texture *texture;
- TTF_OpenFont("Peepo.ttf",size);
+ TTF_OpenFont("media/Peepo.ttf",size);
  const char*t = text.c_str();
  color.r=r;
   color.g = g;
