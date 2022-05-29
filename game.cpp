@@ -2,18 +2,20 @@
 
 Game::Game(){
 if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
-  if(SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer) < 0) cout << "Failed at SDL_CreateWindowAndRenderer())" << endl;
- Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+if(SDL_CreateWindowAndRenderer(WIDTH, HEIGHT, 0, &window, &renderer) < 0) cout << "Failed at SDL_CreateWindowAndRenderer())" << endl;
+
+Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
    
-      gnhacnen = Mix_LoadMUS("media/nhacnen.mp3");
-      gHigh =Mix_LoadWAV("media/low.wav");
+    gnhacnen = Mix_LoadMUS("media/nhacnen.mp3");
+    gHigh =Mix_LoadWAV("media/low.wav");
     if(Mix_PlayingMusic()==0) Mix_PlayMusic(gnhacnen,-1);
   else{
     if(Mix_PausedMusic()==1) Mix_ResumeMusic();
     else Mix_PauseMusic();
   }
    TTF_Init();
-    font = TTF_OpenFont("media/Peepo.ttf",FONT_SIZE);
+   
+  font = TTF_OpenFont("media/Peepo.ttf",FONT_SIZE);
   bgrMenu.setDest(0,0,1000,600);
   bgrMenu.setSource(0,0,2000,1200);
   bgrMenu.setImage("media/bgr.jpg",renderer);
@@ -41,7 +43,7 @@ if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
   over.setDest(0,0,1000,600);
   over.setSource(0,0,1000,1200);
   over.setImage("media/gameover.jpg",renderer);
-   win.setDest(0,0,1000,600);
+  win.setDest(0,0,1000,600);
   win.setSource(0,0,1000,1200);
   win.setImage("media/youwin.jpg",renderer);
   play1.setDest(0,0,1000,600);
@@ -57,16 +59,14 @@ if(SDL_Init(SDL_INIT_EVERYTHING) < 0) cout << "Failed at SDL_Init()" << endl;
 
 }
 Game::~Game(){
- Mix_FreeChunk(gHigh);
+  Mix_FreeChunk(gHigh);
   gHigh=NULL;
-
   Mix_FreeMusic(gnhacnen);
   gnhacnen=NULL;
   Mix_Quit();
   SDL_DestroyRenderer(renderer);
   SDL_DestroyWindow(window);
   TTF_CloseFont(font);
-  
   SDL_Quit();
 }
 void Game:: variable(){
@@ -81,28 +81,23 @@ void Game:: variable(){
   tuong1.x= 565, tuong1.y=155;
   tuong1.w=101,tuong1.h=85;
   ball.w=ball.h=SIZE;
-
 }
 void Game:: serve(){// ham de giao bong
-
   if(turn) {
     ball.x=l_paddle.x+(l_paddle.w*4);//vi tri ban dau cua bong
     vX=BALL_SPEED/2;// van toc bong theo x
 
   } else {
     ball.x=r_paddle.x-(r_paddle.w*4);
-    vX=-BALL_SPEED/2;
-   
+    vX=-BALL_SPEED/2; 
   }
-  
   vY=0;
   ball.y=HEIGHT/2- SIZE/2;
- m_ball.setDest(ball.x-8,ball.y-4,23,23);
+  m_ball.setDest(ball.x-8,ball.y-4,23,23);
   m_ball2.setDest(ball.x-8,ball.y-4,25,25);
   turn=!turn;// cu sau moi lan thua thi no quay nguoc bong lai
 }
 void Game:: renderMenu(){
-
   SDL_RenderClear(renderer);//background
   draw(bgrMenu);
   if((count==1&& count1==1)|| (count==1&&count1==2) ||( count==2 && count1==1) || (count==2 && count1==2))  draw(play);
@@ -134,9 +129,7 @@ void Game:: renderMenu(){
    write(score1, WIDTH/2-215,FONT_SIZE*6,0,0,0,FONT_SIZE);
    write(score2 , WIDTH/2 +100 ,FONT_SIZE*6,0,0,0,FONT_SIZE);
   SDL_RenderPresent(renderer);
-    }
-   
-    
+    }  
 }
 void Game:: inputMenu(){
       stringstream ss;
@@ -158,11 +151,11 @@ void Game:: inputMenu(){
    
     if( e.button.button== SDL_BUTTON_LEFT&& mouseX>=110&& mouseX<=270&&mouseY>=170&& mouseY<=225){
       easy=1;
-        count=1;
+      count=1;
     }
     if(e.button.button==SDL_BUTTON_LEFT && mouseX >= 101 && mouseX <= 273 && mouseY>= 371&& mouseY<=425 ){
       easy=2;
-       count=2;
+      count=2;
     }
     if(e.button.button==SDL_BUTTON_LEFT && mouseX>=450 && mouseX<=580&& mouseY>=275 && mouseY<=330){
       mode1=" 1 PLAYER";
@@ -185,13 +178,10 @@ void Game:: inputMenu(){
       start=1;
     }
    }
-   
    if(keystates[SDL_SCANCODE_ESCAPE]) running =0,run=1;
    if(start==1) running =0;
   }
-   
-  }
-
+ }
 void Game:: runMenu(){
   running=1;
 while(running){
@@ -200,9 +190,7 @@ while(running){
   }
 }
 void Game:: update(){
-
- score= "   SCORE :    "+ to_string(l_s)+ "              "+ to_string(r_s)+"        (/5)"; 
-  
+  score= "   SCORE :    "+ to_string(l_s)+ "              "+ to_string(r_s)+"        (/5)"; 
   //2 ham o duoi nay de hoa cac paddle va bong co the dap nhau va phan lai
   if(SDL_HasIntersection(&ball, &r_paddle)) {
    Mix_PlayChannel(-1,gHigh,0);
@@ -229,8 +217,7 @@ void Game:: update(){
   double bounce = norm * (5*PI/12);//75 do
   vX=BALL_SPEED*cos(bounce);
   vY=BALL_SPEED*-sin(bounce);
-  
- }
+  }
  }
  // dieu khien AI 
  if((easy==1&&mode==1)||(easy==2&&mode==1)){
@@ -242,7 +229,7 @@ void Game:: update(){
   
   if(ball.x<=0) {// tang diem
     r_s++;
-   serve();
+    serve();
  }
    if(ball.x>=WIDTH-SIZE) {
     l_s++;
@@ -255,16 +242,13 @@ void Game:: update(){
   if(r_paddle.y+r_paddle.h> HEIGHT) r_paddle.y= HEIGHT- r_paddle.h;
    ball.x+=vX;
    ball.y+=vY;
- m_ball.setDest(ball.x-8,ball.y-4,23,23);
- m_ball2.setDest(ball.x-8,ball.y-4,23,23);
+   m_ball.setDest(ball.x-8,ball.y-4,23,23);
+   m_ball2.setDest(ball.x-8,ball.y-4,23,23);
 }
-
-
 void Game:: inputgame(){
   SDL_Event e;
   const Uint8 *keystates= SDL_GetKeyboardState(NULL);
-
-  while(SDL_PollEvent(&e)){
+ while(SDL_PollEvent(&e)){
    if(e.type==SDL_QUIT) running =0;
   }
   
@@ -274,7 +258,7 @@ void Game:: inputgame(){
   if(keystates[SDL_SCANCODE_DOWN]) l_paddle.y+=SPEED+5;
   }
   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
-     if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
+  if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
   if(keystates[SDL_SCANCODE_W]) l_paddle.y-=SPEED+5;
   if(keystates[SDL_SCANCODE_S]) l_paddle.y+=SPEED+5;
   if(keystates[SDL_SCANCODE_UP]) r_paddle.y-=SPEED+5;
@@ -309,22 +293,19 @@ void Game::write(string text, int x, int y,int r, int g, int b,int size){// ham 
 void Game:: rendergame(){
     
   if((easy==1&&mode==1)|| (easy==1&&mode==2)){
-  
    SDL_RenderClear(renderer);//background
-  draw(bgr);
-   
+   draw(bgr);
    frameCount++;
-  timerFPS= SDL_GetTicks()-lastFrame;
-  if(timerFPS<(1000/60)){
+   timerFPS= SDL_GetTicks()-lastFrame;
+   if(timerFPS<(1000/60)){
       SDL_Delay((1000/60)-timerFPS);
   }
   write(score, WIDTH/2+ FONT_SIZE*3+210,FONT_SIZE*2,0,0,0,27);
- SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
   SDL_RenderFillRect(renderer, &l_paddle);
-   SDL_RenderFillRect(renderer, &r_paddle);
-   draw(m_ball);
-
-   SDL_RenderPresent(renderer);
+  SDL_RenderFillRect(renderer, &r_paddle);
+  draw(m_ball);
+  SDL_RenderPresent(renderer);
    if(r_s==5||l_s==5 ) running=0;
 }
 if(easy==2&&mode==1|| easy==2&&mode==2){
@@ -350,9 +331,7 @@ if(easy==2&&mode==1|| easy==2&&mode==2){
 }
 void Game:: rungame(){
   running=1;
-
-  while(running){
-    
+ while(running){
         lastFrame =SDL_GetTicks();
         if(lastFrame>=(lastTime+1000)){
             lastTime=lastFrame;
@@ -361,10 +340,8 @@ void Game:: rungame(){
         }
        update();
        inputgame();
-          rendergame();
-        
-  }
-}
+       rendergame();
+ }}
 void Game::runback(){
   bool run=1;
   while(run){

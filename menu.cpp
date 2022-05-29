@@ -137,8 +137,6 @@ while(running){
 
    //bat dau tu duoi nay la set mau cua cac thanh phan
    SDL_SetRenderDrawColor(renderer, 0, 0, 0 ,255);
-    
-   
    write(level1, WIDTH/2-215, FONT_SIZE*6-100);
    write(level2, WIDTH/2-215,FONT_SIZE*6+100);
    write(score1, WIDTH/2-215,FONT_SIZE*6);
