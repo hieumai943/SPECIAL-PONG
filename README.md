@@ -6,9 +6,9 @@ Bài tập cuối học phần INT2215
 
 ## Mô tả chung về trò chơi
 
-- Có 2 Level chơi: `dễ` và `khó` , có 2 chế độ chơi: `1 PLAYER` và `2 PLAYER`. 
- - Đối với dễ và chế độ 1 người chơi ta có map sân bóng và phải sử dụng `mũi tên lên,xuống` để điều khiển thanh để đỡ bóng , làm bóng bật ra, nếu k đỡ được bóng đối phương sẽ có 1 điểm. Còn chế độ 2 người chơi, người thứ nhất sẽ dùng phím `W` và `S` để di chuyển lên xuống thanh còn người thứ 2 dùng mũi tên lên xuống(lưu ý ở đây ta phải chuyển unikey về tiếng anh thì mới chơi được chế độ 2 người)
- - Đối với khó ta có map vũ trụ và các tiểu hành tinh là các chướng ngại vật, khi bóng (ở đây là các thiên thạch) đập vào chướng ngại vật thì bóng sẽ bị bật ra theo hướng khó đoán và tương tự với chế độ 1,2 người chơi
+- Có 2 Level chơi: `EASY` và `HARD` , có 2 chế độ chơi: `1 PLAYER` và `2 PLAYER`. 
+ - Đối với `EASY` và chế độ 1 người chơi ta có map sân bóng và phải sử dụng `mũi tên lên,xuống` để điều khiển thanh để đỡ bóng , làm bóng bật ra, nếu k đỡ được bóng đối phương sẽ có 1 điểm. Còn chế độ 2 người chơi, người thứ nhất sẽ dùng phím `W` và `S` để di chuyển lên xuống thanh còn người thứ 2 dùng mũi tên lên xuống(lưu ý ở đây ta phải chuyển unikey về tiếng anh thì mới chơi được chế độ 2 người)
+ - Đối với `HARD` ta có map vũ trụ và các tiểu hành tinh là các chướng ngại vật, khi bóng (ở đây là các thiên thạch) đập vào chướng ngại vật thì bóng sẽ bị bật ra theo hướng khó đoán và tương tự với chế độ 1,2 người chơi
 - Thang điểm ở đây là *5*, ai đạt *5* điểm trước thì người đó thắng
 
 ## Các chức năng đã cài đặt
@@ -41,7 +41,7 @@ Bài tập cuối học phần INT2215
 - Tạo thêm các mức độ chơi, thêm các chướng ngại vật thú vị hơn như có một máy bắn ở giữa, ta phải vừa đỡ bóng, vừa phải né đạn từ máy không sẽ bị trừ mạng,...
 - Tạo thêm nhiều chế độ chọn background của game, nhiều chế độ của quả bóng hơn.
 ## Nguồn tham khảo
-- Em học và tham khảo trên https://www.youtube.com/watch?v=DeKfZhwyFO4&t=1715s 
+- Em học và tham khảo trên https://www.youtube.com/watch?v=DeKfZhwyFO4&t=1715s và https://lazyfoo.net/tutorials/SDL/index.php
 - Âm thanh, hình ảnh e tự lấy trên mạng và tự chỉnh sửa 
 ## Điều tâm đắc rút ra được
 - Chỉ tham khảo phần code logic của game pong truyền thống, còn lại là tự code, tự phát triển game
