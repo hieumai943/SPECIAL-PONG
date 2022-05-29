@@ -234,8 +234,8 @@ void Game:: update(){
  }
  // dieu khien AI 
  if((easy==1&&mode==1)||(easy==2&&mode==1)){
-  if(ball.y>r_paddle.y+r_paddle.h/2) r_paddle.y+=SPEED;
-  if(ball.y<r_paddle.y+r_paddle.h/2) r_paddle.y-=SPEED;
+  if(ball.y>r_paddle.y+r_paddle.h/2) r_paddle.y+=SPEED-2;
+  if(ball.y<r_paddle.y+r_paddle.h/2) r_paddle.y-=SPEED-2;
  }
   //tang diem so va quay về giữa khi bóng ra khỏi màn
     if(ball.y<=0||ball.y+SIZE>= HEIGHT) vY=-vY;
@@ -266,12 +266,6 @@ void Game:: inputgame(){
 
   while(SDL_PollEvent(&e)){
    if(e.type==SDL_QUIT) running =0;
- if(e.type==SDL_MOUSEMOTION){
-   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
-    l_paddle.x=32;
-    l_paddle.y=e.motion.y;
-   }
-  }
   }
   
   if((easy==1&&mode==1)|| (easy==2 && mode==1)){
@@ -281,7 +275,8 @@ void Game:: inputgame(){
   }
   if((easy==1&&mode==2)|| (easy==2 && mode==2)){
      if(keystates[SDL_SCANCODE_ESCAPE]) running =0;
- 
+  if(keystates[SDL_SCANCODE_W]) l_paddle.y-=SPEED+5;
+  if(keystates[SDL_SCANCODE_S]) l_paddle.y+=SPEED+5;
   if(keystates[SDL_SCANCODE_UP]) r_paddle.y-=SPEED+5;
   if(keystates[SDL_SCANCODE_DOWN]) r_paddle.y+=SPEED+5;
   }
