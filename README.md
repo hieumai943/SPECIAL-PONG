@@ -13,10 +13,10 @@ Bài tập cuối học phần INT2215
 
 ## Các chức năng đã cài đặt
 - Menu game 
- - Chế độ 1, 2 người chơi và mức độ dễ và khó. Sau khi chọn xong mức độ, chế độ thì nút play hiện ra để bấm vào chơi
- - Chơi thua sẽ hiện ra GAME OVER, thắng sẽ hiện ra YOU WIN, người chơi 1 thắng sẽ hiện ra PLAYER 1 WIN và ngược lại
- - Menu khi kết thúc game gồm có REPLAY  để quay lại menu ban đầu và chơi tiếp, còn QUIT để thoát khỏi trò chơi
-- Trong quá trình chơi muốn kết thúc giữa chừng sẽ phải bấm nút Esc hoặc bấm dấu x trên cửa sổ game. Sau đó bấm QUIT
+ - Chế độ 1, 2 người chơi và mức độ dễ và khó. Sau khi chọn xong mức độ, chế độ thì nút `play` hiện ra để bấm vào chơi
+ - Chơi thua sẽ hiện ra `GAME OVER`, thắng sẽ hiện ra `YOU WIN`, người chơi 1 thắng sẽ hiện ra `PLAYER 1 WIN` và ngược lại
+ - Menu khi kết thúc game gồm có `REPLAY`  để quay lại menu ban đầu và chơi tiếp, còn `QUIT` để thoát khỏi trò chơi
+- Trong quá trình chơi muốn kết thúc giữa chừng sẽ phải bấm nút Esc hoặc bấm dấu x trên cửa sổ game. Sau đó bấm `QUIT`
 
 ## Các kiến thức đã sử dụng
 - Con trỏ
@@ -47,4 +47,4 @@ Bài tập cuối học phần INT2215
 - Chỉ tham khảo phần code logic của game pong truyền thống, còn lại là tự code, tự phát triển game
 - Dùng được 4 thư viện hay sử dụng nhất của SDL2
 - Biết tự cắt ghép chỉnh sửa ảnh để phù hợp với game
-- Game: 
+- Game: https://www.youtube.com/watch?v=QS9GC88XGb0
