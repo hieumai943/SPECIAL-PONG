@@ -3,6 +3,7 @@ Bài tập cuối học phần INT2215
 - Tên sinh viên: Nguyễn Mai Hiếu
 - Mã sinh viên: 21020069
 - Trường Đại học Công Nghệ- ĐHQG Hà Nội
+![image](https://user-images.githubusercontent.com/100342027/216767134-f312862c-a84f-4cce-abc2-594d93420ec2.png)
 
 ## Mô tả chung về trò chơi
 
